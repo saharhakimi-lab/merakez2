@@ -313,11 +313,35 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative; /* 📌 חובה בשביל המיקום של האוואטר */
+            overflow: visible; /* מאפשר לאוואטר "לפרוץ" קצת מחוץ לגבולות הריבוע */
         }
 
         .card:hover { 
             transform: translateY(-4px); 
             box-shadow: 0 8px 20px rgba(168, 40, 40, 0.12);
+        }
+
+        /* 📌 עיצוב האוואטר המטורלל בכל כרטיסיה */
+        .card-crazy-avatar {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            background: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transform: rotate(-30deg); /* 📌 הטיה מטורללת של 30 מעלות */
+            transition: transform 0.3s ease, scale 0.3s ease;
+            z-index: 10;
+            object-fit: cover;
+            pointer-events: none; /* שלא יפריע ללחיצות */
+        }
+
+        .card:hover .card-crazy-avatar {
+            transform: rotate(-15deg) scale(1.15); /* תנועה מגניבה במעבר עכבר */
         }
 
         .card.highlight {
@@ -349,12 +373,12 @@
         }
 
         /* מחלקות צבעים מותאמות לפי שם התגית */
-        .tag[data-tag*="תוצר"]   { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; } /* אינדיגו/סגול */
-        .tag[data-tag*="מבחן"]   { background: #ffe4e6; color: #9f1239; border-color: #fecdd3; } /* אדום/ורוד */
-        .tag[data-tag*="תרגול"]  { background: #fef9c3; color: #854d0e; border-color: #fef08a; } /* צהוב */
-        .tag[data-tag*="לוגו"]   { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; } /* כחול */
-        .tag[data-tag*="גרפיקה"] { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; } /* כחול בהיר */
-        .tag[data-tag*="תקשורת"] { background: #ffedd5; color: #c2410c; border-color: #fed7aa; } /* כתום */
+        .tag[data-tag*="תוצר"]   { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
+        .tag[data-tag*="מבחן"]   { background: #ffe4e6; color: #9f1239; border-color: #fecdd3; }
+        .tag[data-tag*="תרגול"]  { background: #fef9c3; color: #854d0e; border-color: #fef08a; }
+        .tag[data-tag*="לוגו"]   { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+        .tag[data-tag*="גרפיקה"] { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+        .tag[data-tag*="תקשורת"] { background: #ffedd5; color: #c2410c; border-color: #fed7aa; }
 
         .card a.site-link {
             display: block;
@@ -550,8 +574,10 @@
                         });
                     }
 
+                    /* 📌 הוספנו את האוואטר המטורלל בחלק העליון של הכרטיסייה */
                     const cardHtml = `
                         <div class="card ${classes ? classes.trim() : ''}" data-title="${title.trim()}" data-desc="${description ? description.trim() : ''}" data-tags="${tags ? tags.trim() : ''}">
+                            <img src="https://drive.google.com/thumbnail?id=1BHxytxfATgrv3wpk_8slqpRX08p2Dzml&sz=w200" alt="אוואטר מטורלל" class="card-crazy-avatar">
                             <div>
                                 <h3>${title.trim()}</h3>
                                 <p>${description ? description.trim() : ''}</p>
