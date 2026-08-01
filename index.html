@@ -1,964 +1,608 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אקדמיית האחוואנים - פורטל המשאבים המטורלל</title>
-    <style>
-        :root {
-            --bg-color: #fdf8eb;
-            --card-bg: #ffffff;
-            --primary-red: #a82828;
-            --text-dark: #333333;
-            --accent-gold: #e6a100;
-            --purple-border: #7b1fa2;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 20px;
-            color: var(--text-dark);
-        }
-
-        /* --- עיצוב ה-HERO הראשי והמטורלל --- */
-        .hero-container {
-            background: linear-gradient(135deg, #faefd9 0%, #f7e3be 100%);
-            border: 2px solid #ebd9b8;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 1100px;
-            margin: 0 auto 25px auto;
-            position: relative;
-            box-shadow: 0 8px 25px rgba(168, 40, 40, 0.08);
-            box-sizing: border-box;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: monospace;
-            color: #b87a4d;
-            font-size: 0.8em;
-            margin-bottom: 12px;
-            direction: ltr;
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
-            box-shadow: 0 0 8px #4CAF50;
-        }
-
-        .hero-main-layout {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .hero-right-sec {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1.2;
-            min-width: 320px;
-        }
-
-        .avatar-main-container {
-            flex-shrink: 0;
-        }
-
-        .avatar-main-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 105px;
-            height: 105px;
-            background-color: #faefd9;
-            border: 4px solid var(--purple-border);
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.3);
-            transition: transform 0.3s ease;
-            animation: pulse-avatar 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse-avatar {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.05) rotate(5deg); }
-        }
-
-        .avatar-main-link img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .hero-text {
-            text-align: right;
-        }
-
-        .hero-pill-top {
-            display: inline-block;
-            background: #fdf3e3;
-            border: 1px solid #e0cda9;
-            padding: 3px 12px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            color: var(--primary-red);
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .hero-title {
-            font-size: 1.8em;
-            font-weight: 900;
-            color: var(--primary-red);
-            margin: 2px 0;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .hero-subtitle {
-            font-size: 0.9em;
-            color: #8c4320;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .dashboard-stats {
-            display: flex;
-            justify-content: flex-start;
-            gap: 8px;
-            margin: 6px 0;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: #8c4320;
-        }
-
-        .stat-badge {
-            background: #fbf0d9;
-            border: 1px solid #d9be93;
-            padding: 3px 10px;
-            border-radius: 10px;
-        }
-
-        .ticker-wrap {
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
-            background: rgba(168, 40, 40, 0.06);
-            border-radius: 8px;
-            padding: 5px 0;
-            margin-top: 8px;
-            border: 1px dashed #d9be93;
-            box-sizing: border-box;
-        }
-
-        .ticker-move {
-            display: inline-block;
-            white-space: nowrap;
-            padding-right: 100%;
-            animation: ticker 25s linear infinite;
-            color: #8c4320;
-            font-size: 0.82em;
-            font-weight: bold;
-        }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
-        }
-
-        .hero-left-sec {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid #ebd9b8;
-        }
-
-        .terminal-search-box {
-            width: 100%;
-            position: relative;
-        }
-
-        .terminal-input {
-            width: 100%;
-            padding: 10px 38px 10px 12px;
-            background: #2b2b2b;
-            color: #00ff66;
-            border: 2px solid #a82828;
-            border-radius: 10px;
-            font-family: monospace;
-            font-size: 0.88em;
-            box-sizing: border-box;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            outline: none;
-        }
-
-        .terminal-input::placeholder {
-            color: #888;
-        }
-
-        .terminal-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00ff66;
-            font-family: monospace;
-            font-weight: bold;
-        }
-
-        .action-bar {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .btn-roulette {
-            background: linear-gradient(135deg, #e6a100, #a82828);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 16px;
-            font-size: 0.85em;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-            transition: transform 0.2s, box-shadow 0.2s;
-            width: 100%;
-        }
-
-        .btn-roulette:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-        }
-
-        /* --- סרגל החלפת תצוגות (MODE SWITCHER) --- */
-        .view-toggle-container {
-            max-width: 1100px;
-            margin: 0 auto 20px auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .view-toggle-bar {
-            display: flex;
-            gap: 10px;
-        }
-
-        .view-btn {
-            padding: 8px 18px;
-            border: 2px solid #d9be93;
-            background-color: #fdf8eb;
-            color: #8c4320;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85em;
-            transition: all 0.3s ease;
-        }
-
-        .view-btn:hover, .view-btn.active {
-            background-color: var(--primary-red);
-            color: white;
-            border-color: var(--primary-red);
-            box-shadow: 0 4px 10px rgba(168, 40, 40, 0.2);
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .btn-filter {
-            padding: 5px 12px;
-            border: 1px solid #d9be93;
-            background-color: #ffffff;
-            color: #8c4320;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.78em;
-            transition: all 0.3s;
-        }
-
-        .btn-filter:hover, .btn-filter.active {
-            background-color: var(--primary-red);
-            color: white;
-            border-color: var(--primary-red);
-        }
-
-        /* --- קונטיינר המשאבים הראשי --- */
-        .main-resources-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* --- 1. עיצוב אקורדיון ו-KANBAN --- */
-        .topic-accordion {
-            background: #ffffff;
-            border: 1px solid #ebd9b8;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            transition: border-color 0.3s;
-        }
-
-        .topic-accordion:hover {
-            border-color: var(--accent-gold);
-        }
-
-        .topic-header {
-            background-color: #faefd9;
-            color: var(--primary-red);
-            padding: 14px 20px;
-            font-size: 1.15em;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            transition: background 0.2s;
-        }
-
-        .topic-header:hover {
-            background-color: #f3e2c3;
-        }
-
-        .topic-content {
-            padding: 20px;
-            background-color: #fdf8eb;
-        }
-
-        .kanban-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
-        }
-
-        .kanban-column {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 12px;
-            border: 1px solid #ebd9b8;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
-
-        .kanban-column-title {
-            font-size: 0.92em;
-            font-weight: bold;
-            color: var(--primary-red);
-            border-bottom: 2px solid #faefd9;
-            padding-bottom: 6px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .kanban-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        /* --- עיצוב הכרטיסייה המטורללת --- */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
-            border: 1px solid #eee;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            overflow: visible;
-        }
-
-        .card:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 15px rgba(168, 40, 40, 0.12);
-        }
-
-        .card-crazy-avatar {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-gold);
-            background: white;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            transform: rotate(-30deg);
-            transition: transform 0.3s ease, scale 0.3s ease;
-            z-index: 10;
-            object-fit: cover;
-            pointer-events: none;
-        }
-
-        .card:hover .card-crazy-avatar {
-            transform: rotate(-15deg) scale(1.15);
-        }
-
-        .card.highlight {
-            border: 2px solid var(--accent-gold) !important;
-            box-shadow: 0 0 20px rgba(230, 161, 0, 0.7) !important;
-            transform: scale(1.03);
-        }
-
-        .card h4 { margin: 0 0 5px 0; color: var(--primary-red); font-size: 1em; }
-        .card p { color: #666; font-size: 0.82em; margin: 0 0 10px 0; line-height: 1.3; }
-
-        .tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-
-        .tag {
-            background: #fdf3e3;
-            border: 1px solid #d9be93;
-            font-size: 0.7em;
-            padding: 2px 8px;
-            border-radius: 10px;
-            color: #8c4320;
-            font-weight: 600;
-        }
-
-        .tag[data-tag*="תוצר"]   { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
-        .tag[data-tag*="מבחן"]   { background: #ffe4e6; color: #9f1239; border-color: #fecdd3; }
-        .tag[data-tag*="תרגול"]  { background: #fef9c3; color: #854d0e; border-color: #fef08a; }
-        .tag[data-tag*="חומר"]   { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
-
-        .site-link {
-            display: block;
-            text-align: center;
-            background-color: var(--primary-red);
-            color: white;
-            text-decoration: none;
-            padding: 6px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.8em;
-            transition: background 0.2s;
-        }
-
-        .site-link:hover {
-            background-color: #8a1f1f;
-        }
-
-        /* --- 2. עיצוב תצוגת רשימה מלאה --- */
-        .full-list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .list-item-row {
-            background: #ffffff;
-            border: 1px solid #ebd9b8;
-            border-radius: 12px;
-            padding: 12px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-        }
-
-        .list-item-row:hover {
-            transform: translateX(-4px);
-            box-shadow: 0 4px 12px rgba(168, 40, 40, 0.1);
-        }
-
-        .list-item-info {
-            flex: 2;
-        }
-
-        .list-item-title {
-            font-weight: bold;
-            color: var(--primary-red);
-            font-size: 1em;
-            margin-bottom: 2px;
-        }
-
-        .list-item-desc {
-            color: #666;
-            font-size: 0.82em;
-        }
-
-        .list-item-tags {
-            flex: 1;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .hide { display: none !important; }
-
-        .loading-text {
-            text-align: center;
-            font-size: 1.2em;
-            color: #8c4320;
-            padding: 40px;
-        }
-
-        /* --- אוואטרים צפים בצד שמאל --- */
-        .floating-avatars-container {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            z-index: 1000;
-        }
-
-        .floating-avatar-wrapper {
-            position: relative;
-        }
-
-        .speech-bubble {
-            position: absolute;
-            left: 75px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            color: var(--text-dark);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: bold;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid #ebd9b8;
-            pointer-events: none;
-            opacity: 0.95;
-            transition: opacity 0.3s;
-        }
-
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            right: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            border-width: 6px;
-            border-style: solid;
-            border-color: transparent white transparent transparent;
-        }
-
-        .floating-avatar {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-red);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            background: white;
-            transition: transform 0.3s;
-            display: block;
-        }
-
-        .floating-avatar:hover { transform: scale(1.1); }
-        .floating-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אקדמיית PHOTOSHOP - משימת מיתוג חולצת ערוץ 17</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Assistant & Heebo -->
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-purple: #8e2de2;
+      --accent-pink: #ff0080;
+      --accent-orange: #ff8c00;
+      --accent-cyan: #00c9ff;
+    }
+
+    body {
+      font-family: 'Assistant', 'Heebo', sans-serif;
+      background-color: #FAF7F0;
+    }
+    .cream-bg { background-color: #FAF7F0; }
+    .card-shadow { box-shadow: 0 4px 20px -2px rgba(139, 92, 26, 0.08); }
+    
+    .tabs-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .tabs-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    @keyframes tuvia-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.55); }
+      50% { box-shadow: 0 0 0 14px rgba(37, 99, 235, 0); }
+    }
+    .tuvia-fab {
+      animation: tuvia-glow 2.2s infinite;
+    }
+
+    .tshirt-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+    }
+
+    .btn-ch17 {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-ch17:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 0, 128, 0.4);
+    }
+
+    .badge-ch17 {
+      display: inline-block;
+      background: rgba(0, 201, 255, 0.15);
+      color: var(--accent-cyan);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(0, 201, 255, 0.3);
+    }
+  </style>
 </head>
-<body>
+<body class="cream-bg text-stone-800 min-h-screen pb-12 transition-all duration-300">
 
-    <!-- HERO HEADER -->
-    <div class="hero-container">
-        <div class="top-bar">
-            <span>10.0.30.0/24 // academy.tikshuv.local // session: active <span class="status-dot"></span></span>
-        </div>
+  <!-- 🌟 חלונית צפה 🌟 -->
+  <a href="https://gemini.google.com/gem/182jqjh6fxGeiMJ3R2si6dovgXIugR93N?usp=sharing" target="_blank" rel="noopener"
+     class="tuvia-fab fixed bottom-6 left-6 z-50 block w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden shadow-2xl transition duration-300 transform hover:scale-105 border-4 border-white bg-white">
+    <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="טוביה הבוט" class="w-full h-full object-cover block">
+  </a>
 
-        <div class="hero-main-layout">
-            <div class="hero-right-sec">
-                <div class="avatar-main-container">
-                    <div class="avatar-main-link" title="לוגו סהר תקשוב">
-                        <img src="https://drive.google.com/thumbnail?id=1eVsO38Du8cndWqpQdZWL8w_nyQcTk1DR&sz=w500" alt="אוואטר כותרת">
-                    </div>
-                </div>
-
-                <div class="hero-text">
-                    <div class="hero-pill-top">✨ אקדמיית האחוואנים</div>
-                    <h1 class="hero-title">פורטל אתרי לימוד - קבוצות סהר תקשוב</h1>
-                    <div class="hero-subtitle">ריכוז משאבים, משימות ותרגול לכל השכבות</div>
-                    
-                    <div class="dashboard-stats">
-                        <span class="stat-badge" id="siteCountBadge">🔗 טוען...</span>
-                        <span class="stat-badge">🤖 2 בוטים צפים</span>
-                    </div>
-
-                    <div class="ticker-wrap">
-                        <div class="ticker-move">
-                            💡 טיפ אחוואנים: נתקעת בשיעורי בית? הבוטים הצפים למטה זמינים 24/7 לכל שאלה! | תרגל Subnetting לפחות פעם בשבוע
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-left-sec">
-                <div class="terminal-search-box">
-                    <span class="terminal-icon">&gt;_</span>
-                    <input type="text" id="terminalSearch" class="terminal-input" placeholder="חפש לפי נושא, תגית, או שם אתר..." oninput="handleSearch()">
-                </div>
-
-                <div class="action-bar">
-                    <button class="btn-roulette" onclick="triggerRoulette()">🎲 שגר אותי למשימה אקראית!</button>
-                </div>
-            </div>
-        </div>
+  <!-- חלון חגיגת סיום משימה -->
+  <div id="celebration-overlay" class="fixed inset-0 bg-blue-600/20 backdrop-blur-xs z-50 flex flex-col items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-3xl shadow-2xl border-4 border-blue-600 text-center max-w-sm mx-4 transform scale-95 transition-transform duration-300">
+      <span class="text-7xl mb-4 block animate-bounce">👕🎨🔥</span>
+      <h3 class="text-3xl font-extrabold text-blue-600 mb-2">איזה מלך אתה!</h3>
+      <p class="text-stone-700 font-bold text-lg mb-6">עיצבת חולצת ערוץ 17 מטורפת עם אפקט החיתוך והריחוף! אחוואן מקצוען ברמות!</p>
+      <button onclick="closeCelebration()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 py-3 rounded-xl transition-all shadow-md">
+        יאללה, למשימה הבאה! 🚀
+      </button>
     </div>
+  </div>
 
-    <!-- VIEW TOGGLE & CATEGORY FILTERS -->
-    <div class="view-toggle-container">
-        <div class="view-toggle-bar">
-            <button id="btnGroupedView" class="view-btn active" onclick="switchView('grouped')">
-                📂 תצוגת נושאים ולוחות (Kanban)
+  <!-- באנר עליון -->
+  <header class="bg-white border-b border-blue-100 shadow-xs sticky top-0 z-40 backdrop-blur-md bg-white/90">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      
+      <!-- לוגו וכותרת -->
+      <div class="flex items-center gap-3">
+        <a href="https://drive.google.com/file/d/1o37OfFItdGEpw1tqIE1rnTh2sASehkNU/view?usp=sharing" target="_blank" rel="noopener" class="shrink-0">
+          <img src="https://lh3.googleusercontent.com/d/1o37OfFItdGEpw1tqIE1rnTh2sASehkNU" alt="Photoshop Logo" class="w-12 h-12 object-contain rounded-xl shadow-xs hover:scale-110 transition-transform">
+        </a>
+        <div class="bg-blue-600 text-white px-3 py-2 rounded-2xl shadow-md rotate-[-1deg] font-black text-lg tracking-wider">
+          אקדמיית PHOTOSHOP 🎨
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-black text-stone-900 leading-tight">פרויקט מיתוג: חולצת ערוץ 17</h1>
+          <p class="text-xs sm:text-sm text-stone-500 font-medium">יוצרים חולצת מותג רשמית עם לוגו מובנה, אפקט חיתוך וטקסט מרחף 👕✨</p>
+        </div>
+      </div>
+
+      <!-- סטטוס השיעור -->
+      <div class="bg-blue-50 px-4 py-2.5 rounded-xl border border-blue-100 text-blue-700 text-sm font-black flex items-center gap-2">
+        <span class="badge-ch17">גרסה משולבת</span>
+        <span>חיתוך, רווח וטקסט מרחף ✂️</span>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    
+    <!-- תיבת מוטיבציה שבועית מהמנטור -->
+    <section class="bg-blue-50/50 border border-blue-100 rounded-3xl p-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 card-shadow relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-24 h-24 bg-blue-200/20 rounded-full blur-2xl"></div>
+      <div class="flex items-center gap-4 relative z-10">
+        <span class="text-4xl hidden sm:inline">🧙‍♂️👕</span>
+        <div>
+          <h4 class="text-blue-800 font-black text-lg">פינת המנטור המטורלל:</h4>
+          <p id="motivation-box" class="text-stone-700 font-bold text-md transition-all duration-300">לחצו על הכפתור משמאל או סמנו שלבים כדי לקבל זריקת אנרגיה מטורללת!</p>
+        </div>
+      </div>
+      <button 
+        onclick="triggerRandomMotivation()"
+        class="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-6 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all text-sm whitespace-nowrap"
+      >
+        תדלק אותי במוטיבציה! ⚡
+      </button>
+    </section>
+
+    <!-- 📌 מסגרת 1: הסבר התהליך והקונספט -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 card-shadow border border-stone-100 mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="bg-blue-100 p-3 rounded-2xl text-blue-600 text-2xl font-black">1️⃣</div>
+        <div>
+          <h2 class="text-2xl font-black text-stone-900">הסבר התהליך והקונספט: חולצת ערוץ 17</h2>
+          <p class="text-stone-500 font-semibold text-sm">מה אנחנו הולכים ליצור היום?</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-stone-700 font-bold">
+        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200 flex flex-col gap-2">
+          <span class="text-3xl">✂️</span>
+          <h3 class="text-lg font-black text-blue-700">1. חיתוך חולצת ערוץ 17</h3>
+          <p class="text-sm text-stone-600 font-medium">נחתוך את חולצת המותג הכהה של ערוץ 17 לשני חלקים (עליון ותחתון) וניצור רווח ריק ביניהם.</p>
+        </div>
+        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200 flex flex-col gap-2">
+          <span class="text-3xl">🔤</span>
+          <h3 class="text-lg font-black text-blue-700">2. מיקום השם באוויר</h3>
+          <p class="text-sm text-stone-600 font-medium">בתוך הרווח הריק שנוצר, נמקם את השם הפרטי בטקסט זוהר. השם יישב ברווח ממש באוויר עם אפקט הצללה!</p>
+        </div>
+        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200 flex flex-col gap-2">
+          <span class="text-3xl">💎</span>
+          <h3 class="text-lg font-black text-blue-700">3. שילוב הלוגו הנתונים</h3>
+          <p class="text-sm text-stone-600 font-medium">הלוגו הזוהר של ערוץ 17 מובנה במרכז החזה עם מדרג צבעים ספקטרלי ושיטת איחוד שכבות מתקדמת.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📌 מסגרת 2: תצוגה מקדימה והורדת SVG חולצת ערוץ 17 -->
+    <section class="bg-slate-900 rounded-3xl p-6 sm:p-8 card-shadow border border-slate-800 text-white mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="bg-cyan-500/20 text-cyan-400 p-3 rounded-2xl text-2xl font-black">2️⃣</div>
+        <div>
+          <h2 class="text-2xl font-black text-white">הדמיית מותג ערוץ 17 (קובץ SVG רשמי)</h2>
+          <p class="text-slate-400 font-semibold text-sm">הדמיית חולצה כהה עם לוגו מובנה מרהיב במרכז החזה – מוכן לעבודה בפוטושופ!</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- פאנל בקרות והורדה -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700 space-y-3">
+            <span class="badge-ch17">וקטור נקי</span>
+            <h3 class="text-lg font-black text-cyan-300">חולצת דרייפיט / כותנה ערוץ 17</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              הקובץ כולל גזרת חולצה כהה (Slate/Charcoal), תפרי שרוולים, צווארון T-shirt מועצב, ולוגו מעוין זוהר עם מדרג ספקטרלי מתקדם.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="downloadCh17SVG()" class="btn-ch17 w-full justify-center">
+              <span>📥 הורד SVG של ערוץ 17</span>
             </button>
-            <button id="btnListView" class="view-btn" onclick="switchView('list')">
-                📋 תצוגת רשימה מלאה
+            <button onclick="window.print()" class="px-5 py-3 rounded-xl border border-cyan-400 text-cyan-400 font-bold hover:bg-cyan-400/10 transition-all text-center whitespace-nowrap">
+              🖨️ הדפס / PDF
             </button>
+          </div>
         </div>
 
-        <div class="filter-buttons">
-            <button class="btn-filter active" onclick="filterSelection('all')">הצג הכל</button>
-            <button class="btn-filter" onclick="filterSelection('y-graphics')">כיתה י' - גרפיקה</button>
-            <button class="btn-filter" onclick="filterSelection('y-network')">כיתה י' - תקשורת</button>
-            <button class="btn-filter" onclick="filterSelection('ya')">כיתה י"א</button>
+        <!-- תצוגת חולצת ה-SVG הרשמית -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 p-6 rounded-3xl border border-slate-800">
+          <div id="svg-preview" class="tshirt-wrapper w-full max-w-[420px]">
+            <!-- ה-SVG יורנדר מתוך הקוד -->
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <div id="mainResourcesContainer" class="main-resources-container">
-        <div class="loading-text">טוען נתונים מהגיליון... ⏳</div>
-    </div>
+    <!-- 📌 מסגרת 3: הדרכה מפורטת + משימות -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 card-shadow border border-stone-100 mb-8">
+      
+      <!-- סרגל הטאבים הדינמי למעבר בין השלבים -->
+      <div class="w-full overflow-hidden bg-stone-50 p-2 rounded-2xl border border-stone-200/60 mb-6">
+        <div id="tabs-container" class="tabs-scroll flex flex-nowrap overflow-x-auto gap-3 py-1 px-1">
+          <!-- הטאבים ייווצרו דינמית -->
+        </div>
+      </div>
 
-    <!-- FLOATING BOT AVATARS -->
-    <div class="floating-avatars-container">
-        <div class="floating-avatar-wrapper">
-            <div class="speech-bubble" id="gfxBubble">תקוע בגרפיקה? תשאל אותי! 🎨</div>
-            <a href="https://gemini.google.com/gem/182jqjh6fxGeiMJ3R2si6dovgXIugR93N?usp=sharing" target="_blank" class="floating-avatar" title="פנה לבוט גרפיקה">
-                <img src="https://drive.google.com/thumbnail?id=1BHxytxfATgrv3wpk_8slqpRX08p2Dzml&sz=w500" alt="בוט גרפיקה">
-            </a>
+      <!-- כרטיסיית תוכן השיעור הפעיל -->
+      <div>
+        <div class="border-b border-stone-100 pb-6 mb-6">
+          <span id="lesson-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-3 inline-block">
+            טוען שלב...
+          </span>
+          <h2 id="lesson-title" class="text-2xl sm:text-3xl font-black text-stone-900 mb-2 leading-snug"></h2>
+          <p id="lesson-desc" class="text-stone-600 font-semibold text-base sm:text-lg mb-4 leading-relaxed"></p>
+
+          <div id="lesson-encouragement" class="bg-[#FAF7F0] border-l-4 border-blue-500 p-4 rounded-xl text-stone-700 italic font-bold text-sm leading-relaxed"></div>
         </div>
 
-        <div class="floating-avatar-wrapper">
-            <div class="speech-bubble" id="netBubble">מסתבך ברשתות? בוא נפתור! 🌐</div>
-            <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" class="floating-avatar" title="פנה לבוט תקשורת">
-                <img src="https://drive.google.com/thumbnail?id=1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb&sz=w500" alt="בוט תקשורת">
-            </a>
+        <!-- מד התקדמות מבוסס משימות -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-extrabold text-stone-700 text-sm">התקדמות המשימה:</span>
+            <span id="progress-text" class="font-black text-blue-600 text-sm bg-blue-50 px-2.5 py-1 rounded-lg">0% הושלם</span>
+          </div>
+          <div class="w-full bg-stone-100 h-3 rounded-full overflow-hidden">
+            <div id="progress-bar" class="bg-blue-600 h-full rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
         </div>
-    </div>
 
-    <script>
-        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHUPmbbiSkeoRT5nQ21yhwIeUcAxptQ390F4FlLGWL7PJ4i1KmzjzMgJiYwcj1PfwYtAtSJzczet36/pub?output=csv';
+        <!-- שלבי המשימה עם סימון קל -->
+        <div class="space-y-4 mb-8">
+          <h3 class="font-black text-lg text-stone-900 mb-2">📋 שלבי העבודה שלך:</h3>
+          <div id="steps-container" class="space-y-4">
+            <!-- השלבים ייטענו דינמית -->
+          </div>
+        </div>
 
-        let allParsedSites = [];
-        let currentFilter = 'all';
-        let currentViewMode = 'grouped'; // 'grouped' או 'list'
+        <!-- כפתור סיום משימה -->
+        <div class="flex justify-end pt-4 border-t border-stone-100">
+          <button
+            id="finish-btn"
+            disabled
+            onclick="triggerCelebration()"
+            class="w-full sm:w-auto font-black px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center bg-stone-200 text-stone-400 cursor-not-allowed"
+          >
+            השלם את כל השלבים למעלה כדי לסיים
+          </button>
+        </div>
+      </div>
+    </section>
 
-        async function fetchSites() {
-            try {
-                const response = await fetch(SHEET_CSV_URL);
-                const data = await response.text();
-                const rows = parseCSV(data);
-                
-                allParsedSites = [];
+    <!-- 📌 מסגרת 4: סימולטור התוצר הסופי המרחף -->
+    <section class="bg-slate-900 rounded-3xl p-6 sm:p-8 card-shadow border border-slate-800 text-white mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="bg-cyan-500/20 text-cyan-400 p-3 rounded-2xl text-2xl font-black">4️⃣</div>
+        <div>
+          <h2 class="text-2xl font-black text-white">סימולטור התוצר הסופי: חולצת ערוץ 17 מרחפת</h2>
+          <p class="text-slate-400 font-semibold text-sm">בדוק כאן איך חולצת ערוץ 17 החתוכה והטקסט המרחף אמורים להיראות!</p>
+        </div>
+      </div>
 
-                for (let i = 1; i < rows.length; i++) {
-                    const [title, description, url, classes, tags] = rows[i];
-                    if (!title || !url) continue;
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- בקרות סימולטור -->
+        <div class="lg:col-span-5 space-y-4">
+          <div>
+            <label class="block text-slate-200 font-extrabold text-sm mb-1">✍️ השם שלך (הטקסט המרחף):</label>
+            <input type="text" id="sim-name" value="אחוואן" oninput="updateSimulator()" class="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 font-bold text-cyan-300 focus:outline-none focus:border-cyan-400">
+          </div>
 
-                    allParsedSites.push({
-                        title: title.trim(),
-                        description: description ? description.trim() : '',
-                        url: url.trim(),
-                        classes: classes ? classes.trim() : '',
-                        tags: tags ? tags.trim() : ''
-                    });
-                }
+          <div>
+            <label class="block text-slate-200 font-extrabold text-sm mb-1">↕️ גודל הרווח הריק בין חלקי החולצה:</label>
+            <input type="range" id="sim-gap" min="30" max="90" value="55" oninput="updateSimulator()" class="w-full accent-cyan-400">
+          </div>
+        </div>
 
-                document.getElementById('siteCountBadge').innerText = `📚 ${allParsedSites.length} משאבים`;
-                renderCurrentView();
+        <!-- תצוגת התוצר הסופי (סימולציה) -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 p-8 rounded-3xl border border-slate-800 text-white relative overflow-hidden">
+          <div class="absolute top-3 right-4 text-xs font-black bg-cyan-500 text-slate-950 px-3 py-1 rounded-full">
+            תצוגה מקדימה ערוץ 17 🎨
+          </div>
+          <div id="simulator-output" class="w-full max-w-md flex items-center justify-center min-h-[380px]">
+            <!-- התוצר ירונדר דינמית -->
+          </div>
+        </div>
+      </div>
+    </section>
 
-            } catch (error) {
-                console.error("שגיאה בטעינת הגיליון:", error);
-                document.getElementById('mainResourcesContainer').innerHTML = '<div class="loading-text">אירעה שגיאה בטעינת הנתונים. וודא שקישור ה-CSV תקין.</div>';
-            }
-        }
+    <!-- פוטר -->
+    <footer class="text-center mt-12 pt-6 border-t border-stone-200 text-xs text-stone-500 font-medium">
+      <p>© 2026 אקדמיית פוטושופ - מותג ערוץ 17. כל הזכויות שמורות למעצבי העל.</p>
+      <p class="mt-1 text-blue-600">"חולצת ערוץ 17 + טקסט מרחף באוויר = עיצוב מיתוגי מטורף!" 🚀</p>
+    </footer>
 
-        function parseCSV(text) {
-            let p = '', c = '', r = [];
-            let q = false;
-            let row = [''];
-            for (let i = 0; i < text.length; i++) {
-                c = text[i];
-                p = text[i - 1];
-                if (c === '"') {
-                    if (q && text[i + 1] === '"') { row[row.length - 1] += '"'; i++; }
-                    else { q = !q; }
-                } else if (c === ',' && !q) {
-                    row.push('');
-                } else if ((c === '\r' || c === '\n') && !q) {
-                    if (p !== '\r' || c !== '\n') {
-                        r.push(row);
-                        row = [''];
-                    }
-                } else {
-                    row[row.length - 1] += c;
-                }
-            }
-            if (row.length > 1 || row[0] !== '') r.push(row);
-            return r;
-        }
+  </main>
 
-        function switchView(mode) {
-            currentViewMode = mode;
-            document.getElementById('btnGroupedView').classList.toggle('active', mode === 'grouped');
-            document.getElementById('btnListView').classList.toggle('active', mode === 'list');
-            renderCurrentView();
-        }
+  <script>
+    // מחרוזת ה-SVG של חולצת ערוץ 17 הרשמית
+    const ch17SvgRaw = `<svg viewBox="0 0 500 550" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto block">
+        <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8E2DE2" />
+                <stop offset="45%" stop-color="#FF0080" />
+                <stop offset="100%" stop-color="#FF8C00" />
+            </linearGradient>
 
-        function renderCurrentView() {
-            const container = document.getElementById('mainResourcesContainer');
-            container.innerHTML = '';
+            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00C9FF" />
+                <stop offset="100%" stop-color="#92FE9D" />
+            </linearGradient>
 
-            if (currentViewMode === 'grouped') {
-                renderGroupedKanbanView(container);
-            } else {
-                renderFullListView(container);
-            }
-
-            handleSearch();
-        }
-
-        // 1️⃣ תצוגת נושאים מקובצת (Accordion + Kanban)
-        function renderGroupedKanbanView(container) {
-            const categories = {
-                'y-graphics': { title: '🎨 כיתה י\' - גרפיקה ועיצוב', cards: [] },
-                'y-network': { title: '🌐 כיתה י\' - תשתיות ותקשורת', cards: [] },
-                'ya': { title: '🚀 כיתה י"א - פרויקטים ומתקדמים', cards: [] },
-                'general': { title: '📚 משאבים כלליים', cards: [] }
-            };
-
-            allParsedSites.forEach(item => {
-                if (item.classes.includes('y-graphics')) categories['y-graphics'].cards.push(item);
-                else if (item.classes.includes('y-network')) categories['y-network'].cards.push(item);
-                else if (item.classes.includes('ya')) categories['ya'].cards.push(item);
-                else categories['general'].cards.push(item);
-            });
-
-            Object.keys(categories).forEach((catKey, index) => {
-                const cat = categories[catKey];
-                if (cat.cards.length === 0) return;
-
-                const columns = { '🎯 תרגול ומשימות': [], '📝 מבחנים ובחנים': [], '🎨 תוצרים ופרויקטים': [], '📚 חומרי לימוד': [] };
-
-                cat.cards.forEach(card => {
-                    if (card.tags.includes('תרגול')) columns['🎯 תרגול ומשימות'].push(card);
-                    else if (card.tags.includes('מבחן')) columns['📝 מבחנים ובחנים'].push(card);
-                    else if (card.tags.includes('תוצר')) columns['🎨 תוצרים ופרויקטים'].push(card);
-                    else columns['📚 חומרי לימוד'].push(card);
-                });
-
-                let boardHtml = `<div class="kanban-board">`;
-                Object.keys(columns).forEach(colName => {
-                    boardHtml += `
-                        <div class="kanban-column">
-                            <div class="kanban-column-title">${colName} (${columns[colName].length})</div>
-                            <div class="kanban-cards">
-                    `;
-                    
-                    columns[colName].forEach(card => {
-                        let tagsHtml = card.tags ? card.tags.split(',').map(t => `<span class="tag" data-tag="${t.trim()}">${t.trim()}</span>`).join('') : '';
-                        boardHtml += `
-                            <div class="card ${card.classes}" data-title="${card.title}" data-desc="${card.description}" data-tags="${card.tags}">
-                                <img src="https://drive.google.com/thumbnail?id=1BHxytxfATgrv3wpk_8slqpRX08p2Dzml&sz=w200" alt="אוואטר" class="card-crazy-avatar">
-                                <h4>${card.title}</h4>
-                                <p>${card.description}</p>
-                                <div class="tags">${tagsHtml}</div>
-                                <a href="${card.url}" target="_blank" class="site-link">כניסה לאתר</a>
-                            </div>
-                        `;
-                    });
-
-                    boardHtml += `</div></div>`;
-                });
-                boardHtml += `</div>`;
-
-                const isOpen = index === 0 ? 'block' : 'none';
-                const icon = index === 0 ? '▲' : '▼';
-
-                container.innerHTML += `
-                    <div class="topic-accordion">
-                        <div class="topic-header" onclick="toggleAccordion(this)">
-                            <span>${cat.title} (${cat.cards.length} משאבים)</span>
-                            <span class="icon">${icon}</span>
-                        </div>
-                        <div class="topic-content" style="display: ${isOpen};">
-                            ${boardHtml}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // 2️⃣ תצוגת רשימה מלאה (List View)
-        function renderFullListView(container) {
-            let listHtml = `<div class="full-list-container">`;
-
-            allParsedSites.forEach(item => {
-                let tagsHtml = item.tags ? item.tags.split(',').map(t => `<span class="tag" data-tag="${t.trim()}">${t.trim()}</span>`).join('') : '';
-
-                listHtml += `
-                    <div class="list-item-row card ${item.classes}" data-title="${item.title}" data-desc="${item.description}" data-tags="${item.tags}">
-                        <img src="https://drive.google.com/thumbnail?id=1BHxytxfATgrv3wpk_8slqpRX08p2Dzml&sz=w200" alt="אוואטר" class="card-crazy-avatar">
-                        <div class="list-item-info">
-                            <div class="list-item-title">${item.title}</div>
-                            <div class="list-item-desc">${item.description}</div>
-                        </div>
-                        <div class="list-item-tags">
-                            ${tagsHtml}
-                        </div>
-                        <div>
-                            <a href="${item.url}" target="_blank" class="site-link" style="padding: 6px 14px;">כניסה 🔗</a>
-                        </div>
-                    </div>
-                `;
-            });
-
-            listHtml += `</div>`;
-            container.innerHTML = listHtml;
-        }
-
-        function toggleAccordion(headerElement) {
-            const content = headerElement.nextElementSibling;
-            const icon = headerElement.querySelector('.icon');
+            <filter id="shirtShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+            </filter>
             
-            if (content.style.display === "block") {
-                content.style.display = "none";
-                icon.innerText = "▼";
-            } else {
-                content.style.display = "block";
-                icon.innerText = "▲";
-            }
-        }
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF0080" flood-opacity="0.35"/>
+            </filter>
+        </defs>
 
-        function handleSearch() {
-            const query = document.getElementById('terminalSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName("card");
+        <g filter="url(#shirtShadow)">
+            <path d="M 150 60 Q 200 85 250 85 Q 300 85 350 60 L 440 120 L 390 200 L 350 175 L 350 480 Q 250 492 150 480 L 150 175 L 110 200 L 60 120 Z" fill="#182030" stroke="#0d131f" stroke-width="3"/>
+            <path d="M 180 60 Q 250 108 320 60" fill="none" stroke="#2a364f" stroke-width="5"/>
+            <path d="M 183 63 Q 250 105 317 63" fill="none" stroke="#101726" stroke-width="2"/>
+            <line x1="350" y1="60" x2="350" y2="175" stroke="#253248" stroke-width="2.5" stroke-dasharray="5,5"/>
+            <line x1="150" y1="60" x2="150" y2="175" stroke="#253248" stroke-width="2.5" stroke-dasharray="5,5"/>
+            <path d="M 155 473 Q 250 485 345 473" fill="none" stroke="#253248" stroke-width="2" stroke-dasharray="4,4"/>
+        </g>
 
-            for (let i = 0; i < cards.length; i++) {
-                const title = cards[i].getAttribute('data-title') ? cards[i].getAttribute('data-title').toLowerCase() : '';
-                const desc = cards[i].getAttribute('data-desc') ? cards[i].getAttribute('data-desc').toLowerCase() : '';
-                const tags = cards[i].getAttribute('data-tags') ? cards[i].getAttribute('data-tags').toLowerCase() : '';
+        <g transform="translate(250, 225)" filter="url(#glow)">
+            <rect x="-62" y="-62" width="124" height="124" rx="26" fill="url(#logoGradient)" transform="rotate(45)"/>
+            <rect x="-67" y="-67" width="134" height="134" rx="30" fill="none" stroke="url(#accentGradient)" stroke-width="3.5" transform="rotate(45)"/>
+            <text x="0" y="-26" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#00C9FF" text-anchor="middle" letter-spacing="3">ערוץ</text>
+            <text x="0" y="14" font-family="'Segoe UI', Roboto, sans-serif" font-size="50" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-1">17</text>
+            <circle cx="-36" cy="-36" r="3.5" fill="#92FE9D"/>
+            <circle cx="36" cy="36" r="3.5" fill="#00C9FF"/>
+            <circle cx="36" cy="-36" r="2.5" fill="#FF8C00"/>
+            <circle cx="-36" cy="36" r="2.5" fill="#FF0080"/>
+        </g>
+    </svg>`;
 
-                const matchesQuery = title.includes(query) || desc.includes(query) || tags.includes(query);
-                const matchesCategory = currentFilter === 'all' || cards[i].classList.contains(currentFilter);
+    function renderSVG() {
+      document.getElementById('svg-preview').innerHTML = ch17SvgRaw;
+    }
 
-                if (matchesQuery && matchesCategory) {
-                    cards[i].classList.remove("hide");
-                } else {
-                    cards[i].classList.add("hide");
-                }
-            }
-        }
+    function downloadCh17SVG() {
+      const blob = new Blob([ch17SvgRaw], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `channel17-tshirt.svg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
-        function filterSelection(category) {
-            currentFilter = category;
-            let buttons = document.getElementsByClassName("btn-filter");
+    // ניהול סימולטור התוצר הסופי המרחף של ערוץ 17
+    function updateSimulator() {
+      const name = document.getElementById('sim-name').value || 'אחוואן';
+      const gap = parseInt(document.getElementById('sim-gap').value);
+      const simContainer = document.getElementById('simulator-output');
 
-            for (let btn of buttons) {
-                btn.classList.remove("active");
-                if (btn.getAttribute('onclick').includes(`'${category}'`)) {
-                    btn.classList.add("active");
-                }
-            }
+      const topShirtY = 40;
+      const bottomShirtY = topShirtY + gap;
 
-            handleSearch();
-        }
+      simContainer.innerHTML = `
+        <div class="relative w-full h-[380px] flex flex-col items-center justify-center">
+          
+          <!-- חלק עליון של חולצת ערוץ 17 -->
+          <div class="absolute transition-all duration-200 w-[300px]" style="top: ${topShirtY - 30}px; clip-path: inset(0 0 52% 0);">
+            ${ch17SvgRaw}
+          </div>
 
-        function triggerRoulette() {
-            let visibleCards = Array.from(document.querySelectorAll('.card:not(.hide)'));
-            if (visibleCards.length === 0) return;
+          <!-- הטקסט המרחף באוויר (שם התלמיד) -->
+          <div class="absolute z-20 font-black text-3xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-400 tracking-wider drop-shadow-[0_5px_15px_rgba(0,0,0,0.9)] animate-pulse text-center" style="top: ${topShirtY + 115}px;">
+            ${name}
+          </div>
 
-            visibleCards.forEach(c => c.classList.remove('highlight'));
+          <!-- חלק תחתון של חולצת ערוץ 17 -->
+          <div class="absolute transition-all duration-200 w-[300px]" style="top: ${bottomShirtY - 30}px; clip-path: inset(48% 0 0 0);">
+            ${ch17SvgRaw}
+          </div>
 
-            let rolls = 0;
-            let maxRolls = 12;
-            let speed = 80;
+        </div>
+      `;
+    }
 
-            function cycle() {
-                let randomIndex = Math.floor(Math.random() * visibleCards.length);
-                visibleCards.forEach(c => c.classList.remove('highlight'));
-                visibleCards[randomIndex].classList.add('highlight');
+    // 3. מאגר השלבים והמשימות - פוטושופ לחולצת ערוץ 17
+    const lessonsData = [
+      {
+        id: 1,
+        title: '🎯 חלק א: חיתוך חולצת ערוץ 17',
+        subtitle: 'חיתוך החולצה הכהה',
+        description: 'פותחים את קובץ ה-SVG של ערוץ 17 בפוטושופ, חוצים את החולצה הכהה לשני חלקים אופקיים ומפרידים ביניהם.',
+        encouragement: 'נחתוך את גוף החולצה בדיוק מתחת ללוגו ערוץ 17 כדי ליצור את המרחב לטקסט המרחף!',
+        steps: [
+          { id: '1-1', text: 'פותחים את קובץ SVG חולצת ערוץ 17 בתוך Photoshop (כקובץ Smart Object).' },
+          { id: '1-2', text: 'בוחרים בכלי הבחירה המלבני (Rectangular Marquee Tool - מקש M).' },
+          { id: '1-3', text: 'מסמנים בחירה סביב החצי העליון (מגובה החזה ולמעלה), לוחצים מקש ימני ובוחרים Layer via Cut (Ctrl + Shift + J).' },
+          { id: '1-4', text: 'מזיזים בעזרת כלי ה-Move (מקש V) והחצים במקלדת את החלק העליון למעלה ליצירת רווח ריק.' }
+        ]
+      },
+      {
+        id: 2,
+        title: '🎯 חלק ב: מיקום השם ברווח הריק',
+        subtitle: 'טקסט מרחף בסגנון ערוץ 17',
+        description: 'יוצרים שכבת טקסט בתוך הרווח שנוצר בין חלקי החולצה, ומוסיפים מדרג צבעים זוהר.',
+        encouragement: 'השם שלך יושב בדיוק באמצע, מרחף באוויר בין שני חלקי חולצת המותג!',
+        steps: [
+          { id: '2-1', text: 'בוחרים בכלי הטקסט (Horizontal Type Tool - מקש T).' },
+          { id: '2-2', text: 'בוחרים פונט עבה ומשפחתי (כמו Montserrat, Heebo, או Impact).' },
+          { id: '2-3', text: 'כותבים את השם במרכז הרווח הריק בדיוק בקו האוויר.' },
+          { id: '2-4', text: 'מוסיפים Gradient Overlay (דאבל קליק על השכבה) עם צבעי טורקיז-וורוד כמו של ערוץ 17 + Drop Shadow לציפה!' }
+        ]
+      },
+      {
+        id: 3,
+        title: '🎯 חלק ג: עיבוד סופי וסנכרון הלוגו',
+        subtitle: 'גימור מיתוגי מושלם',
+        description: 'מוודאים שלוגו 17 הזוהר יושב בול בחלק העליון של החזה ומייצאים קובץ הגשה איכותי.',
+        encouragement: 'שלב הפיניש שיהפוך את החולצה למשהו שאפילו המנחים בערוץ 17 היו לובשים!',
+        steps: [
+          { id: '3-1', text: 'מוודאים שלוגו ערוץ 17 המעוין חתוך בשלמותו בחלק העליון ולא נחתך באמצע.' },
+          { id: '3-2', text: 'מוסיפים שכבת התאמה (Adjustment Layer) של Curves או Brightness להבלטת הזוהר.' },
+          { id: '3-3', text: 'במידת הצורך מוסיפים תאורת הילה (Glow) עדינה מסביב לטקסט המרחף.' },
+          { id: '3-4', text: 'מייצאים את התוצר הסופי כקובץ PNG/JPEG ברזולוציה גבוהה ומגישים למורה!' }
+        ]
+      }
+    ];
 
-                rolls++;
-                if (rolls < maxRolls) {
-                    setTimeout(cycle, speed);
-                } else {
-                    visibleCards[randomIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
+    const encouragingQuotes = [
+      "פשששש יא תותח! חולצת ערוץ 17 חתוכה בדיוק מקצועי!",
+      "אחוואן, הלוגו 17 הזוהר והטקסט המרחף פשוט מטורפים!",
+      "מיתוג ערוץ 17 ברמה של תוכנית פריים טיים!",
+      "פוטושופ משתחווה לכישורים שלך, איזה אלופה!",
+      "שילוב של SVG ערוץ 17, חיתוך וזריחה ספקטרלית - מאסטר אמיתי!",
+      "החולצה הזו מוכנה לשידור חי בערוץ 17, עבודה מטורפת!"
+    ];
 
-            cycle();
-        }
+    let activeTab = 1;
+    let completedSteps = {};
 
-        // בועות דיבור מתחלפות
-        const gfxPhrases = [
-            "תקוע בגרפיקה? תשאל אותי! 🎨",
-            "רוצה טיפ ב-Photoshop? 🖌️",
-            "צריך עזרה בעיצוב? אני פה! ✨"
-        ];
+    function renderTabs() {
+      const container = document.getElementById('tabs-container');
+      container.innerHTML = '';
+      
+      lessonsData.forEach((lesson) => {
+        const isActive = activeTab === lesson.id;
+        const tabBtn = document.createElement('button');
+        
+        tabBtn.className = `flex-shrink-0 py-3 px-6 rounded-xl font-bold text-sm transition-all duration-300 flex flex-col items-center justify-center min-w-[190px] border ${
+          isActive 
+            ? 'bg-blue-600 text-white border-blue-600 shadow-md scale-[1.02]' 
+            : 'bg-transparent text-stone-600 border-stone-200 hover:bg-blue-50 hover:text-blue-600'
+        }`;
+        
+        tabBtn.innerHTML = `
+          <span class="text-[10px] uppercase tracking-wider ${isActive ? 'text-blue-200' : 'text-stone-400'}">שלב ${lesson.id}</span>
+          <span class="text-sm font-black mt-0.5 whitespace-nowrap">${lesson.subtitle}</span>
+        `;
+        
+        tabBtn.onclick = () => {
+          activeTab = lesson.id;
+          renderTabs();
+          renderActiveLesson();
+        };
+        
+        container.appendChild(tabBtn);
+      });
+    }
 
-        const netPhrases = [
-            "מסתבך ברשתות? בוא נפתור! 🌐",
-            "שאלות על Subnetting? דבר אליי 🖥️",
-            "רוצה לתרגל פקודות CISCO? 🚀"
-        ];
+    function renderActiveLesson() {
+      const lesson = lessonsData.find(l => l.id === activeTab);
+      if (!lesson) return;
 
-        let gfxIndex = 0;
-        let netIndex = 0;
+      document.getElementById('lesson-badge').innerText = `חלק ${lesson.id} מתוך ${lessonsData.length}`;
+      document.getElementById('lesson-title').innerText = lesson.title;
+      document.getElementById('lesson-desc').innerText = lesson.description;
+      document.getElementById('lesson-encouragement').innerText = `💡 "${lesson.encouragement}"`;
 
-        setInterval(() => {
-            gfxIndex = (gfxIndex + 1) % gfxPhrases.length;
-            netIndex = (netIndex + 1) % netPhrases.length;
-            
-            document.getElementById('gfxBubble').innerText = gfxPhrases[gfxIndex];
-            document.getElementById('netBubble').innerText = netPhrases[netIndex];
-        }, 6000);
+      const stepsContainer = document.getElementById('steps-container');
+      stepsContainer.innerHTML = '';
 
-        window.onload = fetchSites;
-    </script>
+      lesson.steps.forEach((step, index) => {
+        const isChecked = !!completedSteps[step.id];
+        const stepDiv = document.createElement('div');
+        stepDiv.className = `flex gap-4 p-4 rounded-2xl border transition-all cursor-pointer select-none items-start ${
+          isChecked 
+            ? 'bg-blue-50/30 border-blue-300' 
+            : 'bg-white border-stone-200 hover:border-stone-400'
+        }`;
+        
+        stepDiv.onclick = () => toggleStep(step.id);
+
+        stepDiv.innerHTML = `
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center font-black shrink-0 transition-all ${
+            isChecked 
+              ? 'bg-blue-600 text-white rotate-[360deg]' 
+              : 'bg-stone-100 text-stone-600'
+          }">
+            ${isChecked ? `
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            ` : index + 1}
+          </div>
+          <p class="font-bold text-sm sm:text-base leading-relaxed ${
+            isChecked ? 'text-stone-400 line-through' : 'text-stone-800'
+          }">
+            ${step.text}
+          </p>
+        `;
+
+        stepsContainer.appendChild(stepDiv);
+      });
+
+      calculateProgress();
+    }
+
+    function toggleStep(stepId) {
+      completedSteps[stepId] = !completedSteps[stepId];
+      
+      if (completedSteps[stepId]) {
+        const randomEncouragement = encouragingQuotes[Math.floor(Math.random() * encouragingQuotes.length)];
+        document.getElementById('motivation-box').innerText = randomEncouragement;
+      }
+      
+      renderActiveLesson();
+    }
+
+    function calculateProgress() {
+      const lesson = lessonsData.find(l => l.id === activeTab);
+      if (!lesson) return;
+
+      const totalSteps = lesson.steps.length;
+      const completedCount = lesson.steps.filter(step => completedSteps[step.id]).length;
+      const progressPercent = Math.round((completedCount / totalSteps) * 100);
+
+      document.getElementById('progress-text').innerText = `${progressPercent}% הושלם`;
+      document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+      const finishBtn = document.getElementById('finish-btn');
+      if (progressPercent === 100) {
+        finishBtn.disabled = false;
+        finishBtn.innerText = '🎉 סיימתי את המשימה בהצלחה! 🎉';
+        finishBtn.className = 'w-full sm:w-auto font-black px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 active:scale-95 cursor-pointer';
+      } else {
+        finishBtn.disabled = true;
+        finishBtn.innerText = 'השלם את כל השלבים למעלה כדי לסיים';
+        finishBtn.className = 'w-full sm:w-auto font-black px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center bg-stone-200 text-stone-400 cursor-not-allowed';
+      }
+    }
+
+    function triggerCelebration() {
+      const overlay = document.getElementById('celebration-overlay');
+      overlay.classList.remove('hidden');
+      setTimeout(() => {
+        overlay.querySelector('div').classList.remove('scale-95');
+        overlay.querySelector('div').classList.add('scale-100');
+      }, 50);
+    }
+
+    function closeCelebration() {
+      const overlay = document.getElementById('celebration-overlay');
+      overlay.querySelector('div').classList.remove('scale-100');
+      overlay.querySelector('div').classList.add('scale-95');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 150);
+    }
+
+    function triggerRandomMotivation() {
+      const randomQuote = encouragingQuotes[Math.floor(Math.random() * encouragingQuotes.length)];
+      document.getElementById('motivation-box').innerText = randomQuote;
+    }
+
+    window.onload = function() {
+      renderSVG();
+      updateSimulator();
+      renderTabs();
+      renderActiveLesson();
+    };
+  </script>
 </body>
 </html>
